@@ -10,10 +10,10 @@
 			<h5 class="card-header bg-secondary text-white" th:text="${titulo}"></h5>
 			<div class="card-body">
 				<a class="btn btn-primary" th:href="@{/form}" role="button">Crear
-					Cliente</a> <br> <br>
-				<div class="table-responsive">
+					Cliente</a>
+				<div class="table-responsive my-4">
 					<table class="table">
-						<thead>
+						<thead class="thead-dark">
 							<tr>
 								<th scope="col">Id</th>
 								<th scope="col">Nombre</th>
@@ -31,16 +31,9 @@
 								<td th:text="${cliente.email}"></td>
 								<td th:text="${cliente.createAt}"></td>
 								<td>
-								<a th:href="@{/ver/} + ${cliente.id}"
-									class="btn btn-info btn-sm" role="button"
-									aria-pressed="true">Ver</a>
-								<a th:href="@{/form/} + ${cliente.id}"
-									class="btn btn-success btn-sm" role="button"
-									aria-pressed="true">Editar</a> <a
-									th:href="@{/eliminar/} + ${cliente.id}"
-									class="btn btn-danger btn-sm" role="button" aria-pressed="true"
-									onclick="return confirm('Estas seguro de eliminar registro?');">Eliminar</a>
-									
+									<a th:href="@{/ver/} + ${cliente.id}" class="btn btn-info btn-sm" role="button" aria-pressed="true">Ver</a>
+									<a th:href="@{/form/} + ${cliente.id}" class="btn btn-success btn-sm" role="button"	aria-pressed="true">Editar</a> 
+									<a th:href="@{/eliminar/} + ${cliente.id}" class="btn btn-danger btn-sm" role="button" aria-pressed="true" onclick="return confirm('Estas seguro de eliminar registro?');">Eliminar</a>
 								</td>
 							</tr>
 						</tbody>

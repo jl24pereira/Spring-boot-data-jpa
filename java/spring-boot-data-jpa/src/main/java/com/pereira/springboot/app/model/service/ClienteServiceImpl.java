@@ -9,7 +9,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.pereira.springboot.app.model.dao.IClienteDao;
+import com.pereira.springboot.app.model.dao.IFacturaDao;
+import com.pereira.springboot.app.model.dao.IProductoDao;
 import com.pereira.springboot.app.model.entity.Cliente;
+import com.pereira.springboot.app.model.entity.Factura;
+import com.pereira.springboot.app.model.entity.Producto;
 
 @Service
 @Transactional
@@ -17,41 +21,71 @@ public class ClienteServiceImpl implements IClienteService {
 	
 	@Autowired
 	IClienteDao clienteDao;
+	
+	@Autowired
+	IProductoDao productoDao;
+	
+	@Autowired
+	IFacturaDao facturaDao;
 
 	@Override
+	@Transactional(readOnly = true)
 	public List<Cliente> findAll() {
 		// TODO Auto-generated method stub
 		return (List<Cliente>) clienteDao.findAll();
 	}
-	
+
 	@Override
+	@Transactional
+	public void save(Cliente cliente) {
+		clienteDao.save(cliente);
+		
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Cliente findOne(Long id) {
+		// TODO Auto-generated method stub
+		return clienteDao.findById(id).get();
+	}
+
+	@Override
+	@Transactional
+	public void delete(Long id) {
+		clienteDao.deleteById(id);
+		
+	}
+
+	@Override
+	@Transactional(readOnly = true)
 	public Page<Cliente> findAll(Pageable pageable) {
 		// TODO Auto-generated method stub
 		return clienteDao.findAll(pageable);
 	}
 
 	@Override
-	public void save(Cliente cliente) {
+	public List<Producto> findByNombre(String nombre) {
 		// TODO Auto-generated method stub
-		clienteDao.save(cliente);
+		return productoDao.findByNombreLikeIgnoreCase("%"+nombre+"%");
 	}
 
 	@Override
-	public Cliente findOne(Long id) {
+	public void saveFactura(Factura factura) {
 		// TODO Auto-generated method stub
-		if(clienteDao.existsById(id)) {
-			return clienteDao.findById(id).get();	
-		}else {
-			return null;
-		}
+		facturaDao.save(factura);
 	}
 
 	@Override
-	public void delete(Long id) {
+	public Producto findProductoById(Long id) {
 		// TODO Auto-generated method stub
-		if(clienteDao.existsById(id)) {
-			clienteDao.deleteById(id);	
-		}
+		return productoDao.findById(id).get();
+	}
+
+	@Override
+	@Transactional(readOnly=true)
+	public Factura findFacturaById(Long id) {
+		// TODO Auto-generated method stub
+		return facturaDao.findById(id).get();
 	}
 
 }

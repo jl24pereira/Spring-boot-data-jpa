@@ -1,5 +1,7 @@
 package com.pereira.springboot.app;
 
+import java.nio.file.Paths;
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -13,6 +15,15 @@ public class MvcConfig extends WebMvcConfigurationSupport {
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		super.addResourceHandlers(registry);
-		registry.addResourceHandler("/uploads/**").addResourceLocations("file:/C:/uploads/");
+		String resourcePath = Paths.get("uploads").toAbsolutePath().toUri().toString();
+		registry.addResourceHandler("/uploads/**").addResourceLocations(resourcePath);
+		registry.addResourceHandler(
+                "/img/**",
+                "/css/**",
+                "/js/**")
+                .addResourceLocations(
+                        "classpath:/static/images/",
+                        "classpath:/static/css/",
+                        "classpath:/static/js/");
 	}
 }

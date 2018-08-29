@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.validation.Valid;
 
@@ -25,6 +26,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.pereira.springboot.app.model.entity.Cliente;
 import com.pereira.springboot.app.model.service.IClienteService;
+import com.pereira.springboot.app.model.service.IUploadService;
 import com.pereira.springboot.app.util.paginator.PageRender;
 
 @Controller
@@ -32,6 +34,9 @@ public class ClienteController {
 
 	@Autowired
 	private IClienteService service;
+
+	@Autowired
+	private IUploadService uploadService;
 
 	@RequestMapping(value = "/listar", method = RequestMethod.GET)
 	public String listar(@RequestParam(name = "page", defaultValue = "0") int page, Model model) {
@@ -59,21 +64,12 @@ public class ClienteController {
 		if (result.hasErrors()) {
 			return "form";
 		}
-		if (!foto.isEmpty()) {
-			Path directorioRecurso = Paths.get("src//main//resources//static//uploads");
-			Path rootPath = Paths.get("uploads").resolve(foto.getOriginalFilename());
-			Path rootAbsolutePath = rootPath.toAbsolutePath();
-			try {
-				//byte[] bytes = foto.getBytes();
-				//Path rutaCompleta = Paths.get(rootPath + "//" + foto.getOriginalFilename());
-				//Files.write(rutaCompleta, bytes);
-				Files.copy(foto.getInputStream(), rootAbsolutePath);
-				flash.addAttribute("info", "Foto subida con exito!");
-				cliente.setFoto(foto.getOriginalFilename());
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		try {
+			uploadService.upload(foto);
+			flash.addAttribute("info", "Foto subida con exito!");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		service.save(cliente);
 		flash.addFlashAttribute("success", "Cliente Registrado con Exito!");
@@ -87,7 +83,6 @@ public class ClienteController {
 			cliente = service.findOne(id);
 			System.out.println("CLIENTE: " + cliente);
 			if (cliente == null) {
-				// System.out.println("CLIENTE: "+cliente);
 				flash.addFlashAttribute("error", "ID de Cliente no valido!!");
 				return "redirect:/listar";
 			}
@@ -109,15 +104,15 @@ public class ClienteController {
 		return "redirect:/listar";
 	}
 
-	@GetMapping(value="/ver/{id}")
-	public String ver(@PathVariable(value="id") Long id, Map<String, Object> model, RedirectAttributes flash) {
+	@GetMapping(value = "/ver/{id}")
+	public String ver(@PathVariable(value = "id") Long id, Map<String, Object> model, RedirectAttributes flash) {
 		Cliente cliente = service.findOne(id);
-		if(cliente ==null) {
+		if (cliente == null) {
 			flash.addFlashAttribute("error", "ID de Cliente no valido!!");
 			return "redirect:/listar";
 		}
 		model.put("cliente", cliente);
-		model.put("titulo", "Detalle de Cliente: "+cliente.getNombre()+" "+cliente.getApellido());
+		model.put("titulo", "Detalle de Cliente: " + cliente.getNombre() + " " + cliente.getApellido());
 		return "ver";
 	}
 }
