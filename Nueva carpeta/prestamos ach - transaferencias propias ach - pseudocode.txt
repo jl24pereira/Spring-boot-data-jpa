@@ -1,0 +1,39 @@
+validarCuentaCargoCliente ->
+saldoTarjeta = refrescarSaldo -> 
+    return refrescarSaldo -> 
+        CuentasUtils.refreshSaldo -> 
+            refreshSaldosByCliente -> 
+                case 4 : // Tarjeta de Credito -> 
+                    getUsuarioCuentaList
+                        -> AS400 # 01 <-
+            <- actualiza lista de cuentas segun map(#Tarjeta, saldoTarjeta)
+        <- return Cuenta(SaldosTarjeta)
+    <- return
+Copiamos los datos de la cuenta en session por la cuenta en el request
+
+
+Servicios.validarTransaccionesPendientes()
+    -> validar abonos y cargos pendientes
+        -> MYSQL # <-
+
+Acutalizar estado de Form 
+/********* FIN DE SEGUNDO ESTADO *******/
+
+/********* INICIO DE TERCER ESTADO *******/
+verificar si es corregir
+
+Verificar si es guardar
+
+Servicios.limitesValido
+    -> !TipoOperacion.MULTIPLE
+        ->saveTransaccion()
+            -> TransaccionUtils.save(*trx*)
+                -> HibernateMap.save(*trx*)
+                ->crearBanderaGuardarTransaccion
+                    -> MYSQL # <-
+                <-
+            <-
+        <-
+    <-
+<-
+/********* FIN DE TERCER ESTADO *******/

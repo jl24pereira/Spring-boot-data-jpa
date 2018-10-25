@@ -1,0 +1,43 @@
+-> Cargar Filtros para ESTADO y USUARIOS
+    -> MYSQL # 5 JDBC <-
+-> Verificar el tipo accion y URL
+    -> MYSQL # 6 JDBC <-
+-> Tipo Accion = "iniciar"
+    -> Obtener lista de FAVORITOS
+        -> MYSQL # 7 JDBC <-
+    -> Verificar permisos para Boton "DETALLE"
+        -> Obtener Perfil
+            -> <MYSQL , HIBERNATE> <-
+        -> Accion de perfil cumple con ACCION_SEGURIDAD_VER_DETALLE
+    <-
+    -> CONSULTA DE TRANSACCIONES PROGRAMADAS PENDIENTES DE APLICACION o AUTORIZACION 
+        -> Listar transacciones segun filtro
+            -> MYSQL # 8 JDBC <-
+        <-
+    <-
+-> Tipo Accion = "Consultar Transacciones"
+    -> Verificar permisos para Boton "DETALLE"
+        -> Obtener Perfil
+            -> <MYSQL , HIBERNATE> <-
+        <-
+    -> validar tipo de accion AUDITORIA
+        -> SI 
+            -> Obtener transacciones segun validaciones de perfil
+                -> MYSQL # 7 JDBC <-
+                -> Transacciones por usuario
+                    -> <MYSQL # 10 , HIBERNATE> <-
+                -> Transacciones por historica
+                    -> MYSQL # 11 <-
+            <-
+        -> NO
+            -> Obtener Transacciones
+                -> <MYSQL # 12 , HIBERNATE> <-
+            -> Filtrar segun consulta realizada en el formulario <-
+        <-
+    -> Filtrar para obtener los tipos de Transaccion que corresponde al combobox en el formulario <-
+-> Tipo Accion = "Consultar Lineas"
+    -> Validar si es Accion de AUDITORIA
+        -> SI
+            -> Realizar consulta de AUDITORIA
+            
+        -> NO
