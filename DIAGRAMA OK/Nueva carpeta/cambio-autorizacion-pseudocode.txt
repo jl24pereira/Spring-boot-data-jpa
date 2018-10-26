@@ -1,0 +1,9 @@
+-> Validar Accion (iniciar, generar clave)
+-> Validar Datos
+    -> Validar Clave Autorizacion
+        -> cambiar Datos
+            -> HibernateMap.update(usuario) <MYSQL HIBERNATE UPDATE (corporativa._usuario)> <-
+        <-
+    <-
+<-
+-> Finaliza cambio de Autorizacion

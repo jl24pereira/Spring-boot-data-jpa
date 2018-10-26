@@ -1,0 +1,602 @@
+/********* AS400<001> **********/
+<-- Tarjetas de Credito -->
+select  
+    digits(BIN)||DIGITS(NUMERO)||DIGITS(CORPOR)||DIGITS(ADICIO)||DIGITS(DIGITO) cuenta
+    , CCACUN cliente
+    , CODIGO estado
+    , DIACOR diacorte
+    , DISPON disponible
+    , FECULT fechaultpago
+    , FELIPA fechalimitepago
+    , FLGPRV status
+    , FONRES fondoreservado
+    , FVENC fechavencimiento
+    , LATM  limiteatm
+    , LATMT limiteatmtotal
+    , LIMITE limitecredito
+    , MORA30 mora30
+    , MORA60 mora60
+    , MORA90 mora90
+    , MORTOT moratotal
+    , NOMBRE nombre
+    , PAGME$ pagomesdolares
+    , PAGMEN pagomescolones
+    , PGOCO$ pagocontadodolares
+    , PGOCON pagocontadocolones
+    , PGOMI$ pagominimodolares
+    , PGOMIN pagominimocolones
+    , RECASH reservacash
+    , SACASH saldocash
+    , SALDO saldocolones
+    , SALDO$ saldodolares
+from asin142301.credmast --NOCHE
+from baccyfiles.credmast --DIA
+where 
+    bin  = ?
+    and numero = ?
+    and corpor = ?
+    and adicio = ?
+    and digito = ?
+order by cuenta
+;
+
+
+/********* MYSQL # 1 ************/
+select * 
+from 
+    corporativa._lineaTransaccion a, 
+    corporativa._transaccion b,
+    corporativa.aplicando c 
+where 
+    a.transaccion = c.idTrx 
+    and a.transaccion = b.id
+    and a.cuentaAsString = ? 
+    and b.usuario = ?
+    and b.tipoTransaccion = ?
+    and a.monto = ?
+    and a.tipo = ? --tipoMovimiento
+    and cast(FROM_UNIXTIME(b.fechaCreacion/1000) as date) = ? --fechaDeOperacion
+    and b.estado = 70 
+order by a.id desc
+;
+
+
+/*********** MYSQL # 2 **************/
+insert into corporativa.guardando 
+    set idTrx = ?
+    , fecha = ?
+    , idServer = ?
+;
+
+/*********** MYSQL # 3 **************/
+select *
+from corporativa._favoritos
+where 
+    cliente = ? 
+    and cuenta= ? 
+;
+
+/*********** MYSQL # 4 **************/
+select *
+from corporativa._favoritos
+where 
+    cliente = ?
+    and idContexto = ?
+;
+
+/********* AS400<002> **********/
+select acmcun cli, acmacc cuen, acmpro prod, acmast status
+from baccyfiles.acmst
+where acmacc = ?
+;
+
+/*********** MYSQL # 5 **************/
+SELECT * 
+FROM _usuario 
+WHERE cliente = ? ;
+
+/*********** MYSQL # 6 **************/
+select d.descripcion 
+from 
+    corporativa._usuario a
+    , corporativa._perfilListaElemento b
+    , corporativa._perfilAccion c
+    , seguridad._accion d 
+where 
+    a.perfil = b.perfil 
+    and b.id = c.perfilListaElemento 
+    and c.accion = d.id 
+    and a.user = ? -- Verificacion de USER
+    and d.descripcion = ? -- Verificacion de URL
+;
+
+/*********** MYSQL # 7 **************/
+select *
+from corporativa._favoritos
+where 
+    cliente = ?
+    and idContexto between 1 and 4
+;
+
+/*********** MYSQL # 8 **************/
+select 
+    distinct a.tipoTransaccion
+    ,a.estado
+    ,a.secuencial
+    ,a.fechaUltimaModificacion
+    ,a.referencia
+    ,a.cantidadCreditos
+    ,a.montoCreditos
+    ,a.cantidadDebitos
+    ,a.montoDebitos
+    ,a.descripcion
+    ,a.usuario
+    ,a.expresionAutorizacion
+    ,a.id
+    ,a.fechaCreacion 
+from 
+    _transaccion a
+    , _lineaTransaccion b
+    , _cuenta c
+where 
+    a.cliente       =    ?    -- Cliente #
+    and a.estado    =    ?    -- Estado #
+    and v.tipoTransaccion in (?)    -- si se consulta tipo de transac especifico
+    and a.montoDebitos >= ? and a.montoDebitos <= ?       -- Filtro por monto si aplica
+    and a.secuencial = ?        -- Filtro por idTransaccion si aplica
+    and a.tipoTransaccion = ?       -- Filtro por tipoTransaccion si aplica
+    and b.tipo = 16 and b.cuentaAsString = ?        -- Filtro por cuenta de Cargo si aplica
+    and a.id = b.transaccion    -- 
+    and a.usuario = ?          -- Filtro por usuario
+    and a.id = b.transaccion    -- Filtro por Cuenta de usuario a quien se realizará carga
+    and b.tipo = 16  -- 
+    and c.numero = b.cuentaAsString --  
+    and c.cliente = ?          -- 
+    and a.fechaCreacion >= ?    -- Filtro de fecha de creacion
+    and a.fechaCreacion < ?  --
+;
+
+/*********** MYSQL # 9 **************/
+select d.codigoAccionEjecutable 
+from 
+    corporativa._usuario a
+    , corporativa._perfilListaElemento b
+    , corporativa._perfilAccion c
+    , seguridad._accion d  
+where 
+    a.perfil = b.perfil 
+    and b.id = c.perfilListaElemento 
+    and c.accion = d.id
+    and d.codigoAccionEjecutable IS NOT NULL  
+    and d.codigoAccionEjecutable NOT LIKE ''
+    and a.user = ?
+;
+
+/*********** MYSQL # 10 **************/
+where 
+    v.cliente = ?
+	and v.fechaCreacion >= ?
+	and v.fechaCreacion < ?
+    and v.estado = ?
+    and v.tipoTransaccion in ?
+
+/*********** MYSQL # 11 **************/
+select v
+from  
+    v in class (transaccion/transaccionHistorica)
+    , p in class transaccionPropietario
+where 
+    v.id = p.idTransaccion 
+    and p.cliente = ?
+    and v.fechaCreacion >= ?
+    and v.fechaCreacion < ?
+    and v.estado = ?
+    and v.tipoTransaccion (in/=) ?
+    and v.usuario = ?
+    and v.montoDebitos >= ?
+    and v.montoDebitos <= ?
+;
+
+/*********** MYSQL # 12 **************/
+where 
+    v.cliente = ?
+    and v.estado = ?
+    and v.fechaCreacion >= ?
+    and v.fechaCreacion < ?
+;
+
+/********* AS400<003> **********/
+<-- Cuenta corriente, ahorro, cash manager, cuenta agil -->
+select 
+    'BL' tipo,
+    ACMACC cuenta,
+    ACMCUN cliente,
+    ACMMNB saldoDisponible,
+    ACMORD fechavencsobregiro,
+    ACMCLI sobregiroautorizado,
+    ACMHAM fondoretenido,
+    ACMPRO producto,
+    ACMATY tipocuenta,
+    ACMPBB saldolibreta,
+    ACMGMA promediomensual,
+    ACMMGB saldocontable,
+    ACMPF4 movimientohoy,
+    ACMNDP depositohoy,
+    0      diasobregiro,
+    0      interessobregiros,
+    'A'    estado,
+    ' '    condicion,
+    0      saldoactual,
+    0      fondo1dia,
+    0      fondo2dias,
+    0      fondo3dias,
+    0      fondo15dias,
+    0      fondo30dias,
+    0      anoapertura,
+    0      mesapertura,
+    0      diaapertura,
+    0      anoultmov,
+    0      mesultmov,
+    0      diaultmov,
+    0      anoultremesa,
+    0      mesultremesa,
+    0      diaultremesa,
+    0      overnight,
+    ' '    codigodirecc
+from asin142301.ACMBLL0     -- NOCHE
+from baccyfiles.ACMBL       -- DIA
+where acmacc in (?)
+UNION
+select 
+    'ST'    tipo,
+    ACMACC      cuenta,
+    ACMCUN      cliente,
+    ACMMNB      saldoDisponible,
+    ACMORD      fechavencsobregiro,
+    ACMCLI      sobregiroautorizado,
+    ACMHAM      fondoretenido,
+    ACMPRO      producto,
+    ACMATY      tipocuenta,
+    ACMPBB      saldolibreta,
+    ACMGMA      promediomensual,
+    ACMMGB      saldocontable,
+    ' '         movimientohoy,
+    ACMNDP      depositohoy,
+    ACMCDO      diasobregiro,
+    ACMACO      interessobregiros,
+    ACMAST      estado,
+    ACMCON      condicion,
+    ACMGBL      saldoactual,
+    ACMUL1      fondo1dia,
+    ACMUL2      fondo2dias,
+    ACMUL3      fondo3dias,
+    ACMFL1      fondo15dias,
+    ACMFL2      fondo30dias,
+    ACMOPY      anoapertura,
+    ACMOPM      mesapertura,
+    ACMOPD      diaapertura,
+    ACMLTY      anoultmov,
+    ACMLTM      mesultmov,
+    ACMLTD      diaultmov,
+    ACMLDY      anoultremesa,
+    ACMLDM      mesultremesa,
+    ACMLDD      diaultremesa,
+    ACMRAC      overnight,
+    ACMMLA      codigodirecc
+from asin142301.ACMSTL0     -- NOCHE
+from baccyfiles.ACMST       -- DIA
+where acmacc in (?)
+order by cuenta, tipo
+;
+
+/********* AS400<004> **********/
+<-- deposito a Plazo -->
+select 
+    DEAACC  cuenta,
+    DEAHAM   estadopignorado, 
+    DEACUN  cliente,
+    DEADLC  condicion,
+    DEAFRT  tasaflotante,
+    DEAFTB  tablatasaflotante,
+    DEAFTY  tipotasa,
+    DEAIAL  intacumultotal,
+    DEAICT  tipocalculointeres,
+    DEAIPL  intmontopago,
+    DEAIAL  intpagadototal,
+    DEALID  diaultpagointerese,
+    DEALIM  mesultpagointerese,
+    DEALIY  anoultpagointerese,
+    DEAMAD  diavencimiento,
+    DEAMAM  mesvencimiento,
+    DEAMAY  anovencimiento,
+    DEAMLA  direccionenvio,
+    DEAOAM  montooriginal,
+    DEAODA  tipotermino,
+    DEAODD  diaapertura,
+    DEAODM  mesapertura,
+    DEAODY  anoapertura,
+    DEAPRI  saldocapital,
+    DEAPRO  producto,
+    DEARCM  mesultcambiotasa,
+    DEARCO  diaultcambiotasa,
+    DEARDD  diaultrenov,
+    DEARDM  mesultrenov,
+    DEARDY  anoultrenov,
+    DEAREA  cuentarelacionada,
+    DEAREF  referencia,
+    DEARTE  tasa,
+    DEAUC6  tipodeposito,  -- ARG = Agropecuario   VIN = Vivienda   Sino Normal
+    DEATRC  periodopago,   -- D = Dias M = Meses Sino Ano
+    DEAROY  rollover,      -- depende de periodo de pago
+    DEATRM  termino,       -- depende de periodo de pago
+    DEARAC  cuentarepctora,
+    DEASDD  diainiciociclo,
+    DEASDM  mesiniciociclo,
+    DEASDY  anoiniciociclo,
+    DEALID  diaultpago,
+    DEALIM  mesultpago,
+    DEALIY  anoultpago,
+    DEASTS  status, 
+    0  saldointereses, 
+    0  calculointeresdia, 
+    0  calculointeresmes, 
+    0  calculointeresanno, 
+    0  indicadortasa 
+from bacinfiles.DEATD   -- NOCHE
+from baccyfiles.DEATD   -- DIA
+where DEAACC in (?)
+UNION
+select 
+    DEAACC  cuenta,
+    DEAHAM   estadopignorado, 
+    DEACUN  cliente,
+    DEADLC  condicion,
+    DEAFRT  tasaflotante,
+    DEAFTB  tablatasaflotante,
+    DEAFTY  tipotasa,
+    DEAIAL  intacumultotal,
+    DEAICT  tipocalculointeres,
+    DEAIPL  intmontopago,
+    DEAIAL  intpagadototal,
+    DEALID  diaultpagointerese,
+    DEALIM  mesultpagointerese,
+    DEALIY  anoultpagointerese,
+    DEAMAD  diavencimiento,
+    DEAMAM  mesvencimiento,
+    DEAMAY  anovencimiento,
+    DEAMLA  direccionenvio,
+    DEAOAM  montooriginal,
+    DEAODA  tipotermino,
+    DEAODD  diaapertura,
+    DEAODM  mesapertura,
+    DEAODY  anoapertura,
+    DEAPRI  saldocapital,
+    DEAPRO  producto,
+    DEARCM  mesultcambiotasa,
+    DEARCO  diaultcambiotasa,
+    DEARDD  diaultrenov,
+    DEARDM  mesultrenov,
+    DEARDY  anoultrenov,
+    DEAREA  cuentarelacionada,
+    DEAREF  referencia,
+    DEARTE  tasa,
+    DEAUC6  tipodeposito,       -- ARG = Agropecuario   VIN = Vivienda   Sino Normal
+    DEATRC  periodopago,        -- D = Dias M = Meses Sino Ano
+    DEAROY  rollover,           -- depende de periodo de pago
+    DEATRM  termino,            -- depende de periodo de pago
+    DEARAC  cuentarepctora,
+    DEASDD  diainiciociclo,
+    DEASDM  mesiniciociclo,
+    DEASDY  anoiniciociclo,
+    DEALID  diaultpago,
+    DEALIM  mesultpago,
+    DEALIY  anoultpago,
+    DEASTS  status, 
+    DEAMEI  saldointereses, 
+    DEALCD  calculointeresdia, 
+    DEALCM  calculointeresmes, 
+    DEALCY  calculointeresanno, 
+    DEALRT  indicadortasa
+from bacinfiles.DEALS   -- NOCHE
+from baccyfiles.DEALS   -- DIA
+where 
+    Deapro < '0400' 
+    And DEAACC in (?)
+Order by cuenta
+;
+
+/********* AS400<005> **********/
+<-- Prestamos -->
+select 
+    AHODIA  cuotaapagar,
+    AMORTD  amortizacionpagada,
+    CLIENT  cliente,
+    PREACC  cuenta,
+    PRENAM  nombreprestamo,
+    CUOAHO  cuotaahorro,
+    CUOPAG  ultimacuotapagada,
+    CUOSEG  cuotaseguro,
+    FINMOR  fechainiciomora,
+    FULMOV  fechaultmov,
+    FULPAG  fechaultpago,
+    FULVEN  fechaultvencimiento,
+    PREGAR  tipogarantia,
+    INTAHO  interesesahorro,
+    INTPAG  interespagado,
+    INTPEN  interesespendientes,
+    LINCRE  lineadecredito,
+    MORA    valormora,
+    NUMCU1  numerocuotas,
+    NUMCUO  numerocuota,
+    NUMMOR  numerocuotamora,
+    PLAZO   plazomeses,
+    PREBAS  calcbase,
+    PRECOD  estado,
+    PREDSP  disponibilidad,
+    PREMON  montoprestamo,
+    PREMOR  tasamora,
+    PRENAM  nombreprestamo,
+    PRENUM  numeroprestamo,
+    PREPRO  producto,
+    PREREF  refermaxnomina,
+    PRESAL  saldoprestamo,
+    PRESAP  fechaapertura,
+    PRESCU  cuota,
+    PRETAM  tasa,
+    RECARG  recargomora,
+    RECPAG  recargopagado,
+    RECSER  recargoservicio,
+    SALAHO  saldoahorro,
+    PRELPD  diapagocapital,
+    PRELPM  mespagocapital,
+    PRELPY  aniopagocapital,
+    PRELID  diapagointeres,
+    PRELIM  mespagointeres,
+    PRELIY  aniopagointeres
+from bacinfiles.prestamo    -- NOCHE
+from baccyfiles.prestamo    -- DIA
+where PREACC in (?)
+;
+
+/********* AS400<006> **********/
+<-- Fianzas -->
+select   
+    fgmcun       cliente,
+    fgmacc       cuenta,
+    fgmsts       estado,
+    fgmamt       monto,
+    fgmpri       saldocapital,
+    fgmrte       tasa,
+    fgmplz       diasplazo,
+    fgmmor       mora,
+    fgmben       beneficiario,
+    fgmob1       destino1,
+    fgmob2       destino2,
+    fgmgty       tipogarantia,
+    fgmgt1       gar1,
+    fgmgt2       gar2,
+    fgmopd       diaapertura,
+    fgmopm       mesapertura,
+    fgmopy       anoapertura,
+    fgmmad       diavencimiento,
+    fgmmam       mesvencimiento,
+    fgmmay       anovencimiento
+from baccyfiles.FGMST
+where fgmacc in (?)
+order by estado, cuenta
+;
+
+/********* AS400<007> **********/
+<-- Descuentos -->
+select
+    DEAACC  cuenta,
+    DEACUN  cliente,
+    DEAPRO  producto,
+    DEAOAM  monto,
+    DEAPRI  saldo,
+    DEAMEM  recmora,
+    DEADLC  condicion,
+    DEASTS  status, 
+    DEAMEI  intereses,
+    DEAPDU  moracapital,
+    DEARTE  tasa,
+    DEALSN  diasmora,
+    DEATRM  diaplazo,
+    DEATRC  termino,
+    DEASDD  diaapertura,
+    DEASDM  mesapertura,
+    DEASDY  anoapertura,
+    DEALPD  diapago,
+    DEALPM  mespago,
+    DEALPY  anopago,
+    DEALID  diainteres,
+    DEALIM  mesinteres,
+    DEALIY  anointeres,
+    DEALSN  iniciomora,
+    DEAMAD  diavencimiento,
+    DEAMAM  mesvencimiento,
+    DEAMAY  anovencimiento
+from bacinfiles.DEALS   -- NOCHE
+from baccyfiles.DEALS   -- DIA
+where 
+    DEACLF = 'G'  
+    And DEAACC in (?)
+Order by cuenta;
+
+/********* AS400<008> **********/
+<-- Lineas de Credito -->
+select 
+    lnecun cliente,
+    lnenum cuenta,
+    lneamn monto, 
+    lneamu utilizado,
+    lnedis disponible,
+    lnebsr tasa,
+    lneopd diaaper,
+    lneopm mesaper,
+    lneopy anoaper,
+    lnemtd diavenc,
+    lnemtm mesvenc,
+    lnemty anovenc,
+    lnepur destino,
+    lneofa ofrecido,
+    lnecat estado,
+    lneuf2 estadoVenc,
+    lnegir plazoGiro
+from baccyfiles.lnecr
+where lnecun in (?)
+order by cuenta
+
+/********* AS400<009> **********/
+<-- Fondo Mutuo -->
+select
+    PRCOD          producto,
+    REFERENCIA     cuenta,
+    CLIENTE        cliente,
+    FECHA          fechaapertura,
+    UNIDADES       unidades,
+    PRECIO         precioxunidad,
+    VALOR          valor,
+    COMISION       comision,
+    IMPUESTO       impuesto,
+    COM_ANU_C      comisioncobrada,
+    COM_ANU_P      comisionpagada,
+    UNI_VEND       unidadvendida,
+    UNI_NETO       unidadneta,
+    UNI_PROM       unidadpromedio,
+    P_G_NOREAL     pergannoreal,
+    P_G_REAL       perganreal,
+    CUENTAREF      cuentaref,
+    FECHACAN       fechacancelacion,
+    FECULTVEN      fechavultventa,
+    FECCORTE       fechacorte,
+    SALCORTE       saldocorte,
+    DIVIDEN_G      dividendoganado,
+    DIVIDEN_P      dividendopagado,
+    CONTRATO       contrato,
+    COM_ANU        comisionanual,
+    TITULAR2       titular2,
+    DIRECCION      direccion,
+    FEC_UL_DIV     fechaultdividendo,
+    MON_UL_DIV     montoultdividendo,
+    DIV_ACUM       dividendoacumulado, 
+    HORA       		hora 
+from fondosm.ivref
+where cliente in (?)
+order by cuenta
+;
+
+/********* AS400<010> **********/
+<-- Consulta tipo chequera -->
+select tipchq tipochequera
+from baccyfiles.u41f
+where cuenta = ?
+
+/********* AS400<011> **********/
+<-- Consulta Sucursal -->
+select 
+    BRNNUM  codigo,
+    BRNNME  descripcion,
+    BRNADR  direccion
+from baccyfiles.cntrlbrn where BRNNUM = ?
+;

@@ -1,0 +1,38 @@
+1 -> Verificar ESTADO VALIDO de SOLICITUD
+2 -> Accion = "INICIAR"
+    2.1 -> Validacion de USUARIO y TOKEN
+3 -> Accion = "CONTINUAR" <PAGINA#1>
+    3.1 -> Validar pag. siguiente
+    3.2 -> Validar Cuenta seleccionada
+        3.2.1 -> Obtener cuenta segun tipo
+            3.2.1.1 -> <Cuenta corriente, ahorro, cash manager, cuenta agil>
+                3.2.1.1.1 -> AS400<003> <-
+            3.2.1.2 -> <deposito a Plazo>
+                3.2.1.2.1 -> AS400<004> <-
+            3.2.1.3 -> <Prestamos>
+                3.2.1.3.1 -> AS400<005> <-
+            3.2.1.4 -> <Tarjetas de Credito>
+                3.2.1.4.1 -> AS400<001> <-
+            3.2.1.5 -> <Fianzas>
+                3.2.1.5.1 -> AS400<006> <-
+            3.2.1.6 -> <Descuentos>
+                3.2.1.6.1 -> AS400<007> <-
+            3.2.1.7 -> <Lineas de Credito>
+                3.2.1.7.1 -> AS400<008> <-
+            3.2.1.8 -> <Fondo Mutuo>
+                3.2.1.8.1 -> AS400<009> <-
+            <-
+        3.2.2 -> Verificar tipo chequera
+            3.2.2.1 -> AS400<010> <-
+        <-
+    3.3 -> IR PAGINA 2
+4 -> Accion = "CONTINUAR" <PAGINA#2>
+    4.1 -> Validar pag. siguiente
+    4.2 -> Consultar descarga de Num. de Cheques
+        4.2.1 -> Servicio AS400 <4000180> <Servicios.consultarDecargaNumCheques ()> <-
+    4.3 Verificar descarga de Num. de Cheques
+5 -> Accion = "GUARDAR" <PAGINA#3>
+    5.1 -> Obtener Sucursal
+        5.1.1 -> AS400<011> <-
+    5.2 -> Armar Transaccion de solicitud de chequera
+    5.3 -> Guardar Transaccion

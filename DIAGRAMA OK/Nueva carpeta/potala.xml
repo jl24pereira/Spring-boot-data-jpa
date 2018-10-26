@@ -1,0 +1,1200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE cempi [
+
+<!ELEMENT cempi (property+|db|mq)*>
+<!ATTLIST cempi
+ banco CDATA #REQUIRED
+ descripcion CDATA #IMPLIED
+ >
+
+<!ELEMENT property EMPTY>
+<!ATTLIST property
+ name CDATA #REQUIRED
+ value CDATA #REQUIRED
+ >
+
+<!ELEMENT db EMPTY>
+<!ATTLIST db
+ db-name CDATA #REQUIRED
+ password CDATA #REQUIRED
+ user CDATA #REQUIRED
+ url CDATA #REQUIRED
+ driver CDATA #REQUIRED
+ max-connections CDATA #IMPLIED
+ checkout-timeout CDATA #IMPLIED
+ max-checkout CDATA #IMPLIED
+ >
+
+<!ELEMENT mq EMPTY>
+<!ATTLIST mq
+ transaccion CDATA #REQUIRED
+ timeout CDATA #REQUIRED
+ queue-request CDATA #REQUIRED
+ queue-requestnight CDATA #REQUIRED
+ queue-response CDATA #REQUIRED
+ queue-reversion CDATA #REQUIRED
+ queue-reversionnight CDATA #REQUIRED
+ qm-request CDATA #REQUIRED
+ qm-response CDATA #REQUIRED
+ qm-reversion CDATA #REQUIRED
+ hacerreversion CDATA #REQUIRED
+ >
+
+]>
+<!-- Created by mjimenez on 18 de febrero de 2003, 11:50 -->
+<cempi
+    banco="101"
+    descripcion="Banco Agricola">
+
+    <property name="debug.logs" value="yes" />
+
+    <property 
+        name="system.printer" 
+        value="lpt1" />
+
+    <property name="monedaCotizacion" value="4,6,13"/>
+ 
+    <property 
+        name="system.printer.linux" 
+        value="/tmp/lpt1.txt" />
+    
+    <property
+        name="entidad"
+        value="101" />
+    <property
+        name="nombre-entidad"
+        value="Banco Agricola" />
+    <property
+        name="oficina"
+        value="1" />
+    <property
+        name="centroNegocio"
+        value="1" />
+    <property
+        name="aplicacionBacosi"
+        value="true" />
+    <property
+        name="menu-actions"
+        value="../resources/actions-cempi.xml" />
+    <property
+        name="potala-web-banking-aplicacion"
+        value="1" />
+    <property
+        name="potala-menu-lista-elemento"
+        value="1" />
+    <property
+        name="potala-menu-bac"
+        value="/home/ebanca/sv/empresas/conf/potala-web-menu.vm" />
+    <property
+        name="potala-menu-bac-clave"
+        value="/home/ebanca/sv/empresas/conf/potala-web-menu.vm" />
+
+    <property
+        name="ebanca-application-port-ftp-server"
+        value="21"/>
+
+	<property  name="mail.user.transferenciainter"  value="CarBlanc@bancoagricola.com.sv" />
+<property name="comision.transferenciainter" value="28.25" />
+	<property  name="formulario-egreso-divisas"
+   value="/home/ebanca/sv/personas/images/plantillas/FormularioEgresoDivisas.jpg" />
+
+<!-- Configuracion definida para puerto RMI (BOOTSTRAP) del perfil de eBanca Empresas ID: 59359 Adicionado por: JGEF Fecha:29-Septiembre-2016 -->
+    <property
+        name="Url.Ejb" value="iiop://basrvf01:2809"/>
+        
+    <!-- Lugar donde se encuentra el archivo de politicas de seguridad -->
+    <!-- para RMI -->
+    <property
+        name="java.security.policy"
+        value="./conf/policy.txt" />
+    <property
+        name="velocity.properties"
+        value="/home/ebanca/sv/empresas/conf/velocity.properties" />
+    <property
+        name="velocity.template.usuario"
+        value="/home/ebanca/sv/empresas/conf/usuario.html.vm" />
+    <!-- propiedades de seguridad -->
+    <property
+        name="seguridad.length.min"
+        value="8" />
+    <property
+        name="seguridad.length.max"
+        value="16" />
+    <property
+        name="seguridad.vigencia.clave"
+        value="14" />
+    <property
+        name="potala-cc.host"
+        value="rmi://localhost:1099/" />
+        
+    <!-- Define el lugar donde se encuentran las imagenes de Bacosi para el WebBanking del BA.-->
+    <!-- Define el lugar de la imagen que se despliega cuando no se encuentran imagenes.-->
+    <property
+        name="imagenes-bacosi"
+        value="/mnt/bacosi/" />
+    <property
+        name="imagen-no-disponible"
+        value="/home/ebanca/sv/empresas/images/NoDisponible.jpg" />
+    <!-- Define el lugar de la imagen que se utiliza como plantilla en los estados de cuenta.-->
+    <property
+        name="imagen-estado-cuenta"
+        value="/home/ebanca/sv/empresas/images/ecBA_cte_2016.jpg" />
+    <property
+        name="imagen-estado-cuenta-optima"
+        value="/home/ebanca/sv/empresas/images/ecBA_optima_2016.jpg" />
+    <!-- Define el lugar del archivo de propiedades de Estados de Cuenta de Tarjeta de donde se saca el nombre de la plantilla a utilizar.-->
+    <property
+        name="propiedades-plantillas-ec-tarjeta"
+        value="/home/ebanca/sv/empresas/conf/plantillas.properties" />
+
+<!-- Propiedad de Coneccion de FTP Fondo Inversion -->
+    <property
+        name="server_fondo_inversion"
+        value="10.55.194.30" />
+    <property
+        name="port_fondo_inversion"
+        value="21" />
+    <property
+        name="user_fondo_inversion"
+        value="ugestor" />
+    <property
+        name="pwd_fondo_inversion"
+        value="oracle1" />
+    <property
+        name="dirLectura_fondo_inversion"
+        value="/" />
+    <property
+        name="dirEscritura_fondo_inversion"
+        value="/home/ebanca/sv/empresas/fondoInversionPDF/" />
+
+        <!--Id de menu Datos Usuario -->
+ <property name="id_menu_datos_usuario" value="8048" /> 
+<property name="mail.user.transferenciainter.monedaExtranjera"
+value="CarBlanc@bancoagricola.com.sv" /> 
+   <!-- Define el lugar donde se encuentran las imagenes -->
+    <!-- si la aplicacion es bacosi entonces este el punto inicial donde estan. -->
+    <!-- Hibernate -->
+    <!-- Archivo de propiedades para definiciones -->
+    <property
+        name="hibernate-definiciones"
+        value="/home/ebanca/sv/empresas/conf/hibernate-defs.properties" />
+
+    <property
+        name="potala-hibernate"
+        value="/home/ebanca/sv/empresas/conf/potala-hibernate.properties" />
+
+    <property
+	name="ACTIVAR.TRANSACTION.DAEMON"
+	value="true" />
+
+    <property
+        name="NIVEL.LOG"
+        value="3" />
+
+    <property 
+	name="JNDI.JDBC.PCBACDS" 
+	value="jdbc/empresasSV/ebancaDS" />
+
+    <property
+	name="JNDI.JDBC.PERSONASDS"
+	value="jdbc/empresasSV/personasDS" />
+
+    <property 
+	name="JNDI.JDBC.IBSDS" 
+	value="jdbc/empresasSV/ibsDS" />
+
+    <!-- Propiedad de Coneccion de AS400 -->
+    <property
+        name="DATAQUEUE.HOSTNAME"
+        value="ibsSV" />
+    <property
+        name="DATAQUEUE.USERNAME"
+        value="BACFINTEC" />
+    <property
+        name="DATAQUEUE.USERPASSWD"
+        value="BACFINTEC" />
+    <property
+        name="DATAQUEUE.LIBNAME"
+        value="BACDATQLIB" />
+    <property
+        name="DATAQUEUE.TYPECONNECTION"
+        value="DTAQ" />
+    <property
+        name="DATAQUEUE.DAYPOSFIJO"
+        value="03701" />
+    <property
+        name="DATAQUEUE.NIGHTPOSFIJO"
+        value="EOD01" />
+
+    <!-- MQ -->
+    <property
+        name="USAR_MQ"
+        value="true"/>
+    <property
+       name="USAR_JMS"
+        value="false"/>
+     <property
+        name="HOSTNAME"
+        value="sbssaaebde7.banagricola.com"/>
+    <property name="PORT" value="1414" />
+    <property
+        name="CHANNEL"
+        value="WAS.SVRCONN"/>
+        
+    <!-- CONFIGURACION PLANILLAS FTP -->
+      <property
+        name="ebanca-application-ip-ftp-server"
+        value="172.32.0.120"/>
+    <property
+        name="ebanca-application-name-ftp-server"
+        value="ftpPruebas"/>        
+    <property
+        name="ebanca-application-user-ftp-server"
+        value="alfonso"/>
+    <property
+        name="ebanca-application-password-ftp-server"
+        value="alfonso"/>
+    <property
+        name="ebanca-application-ruta-archivo-peticion-ftp-server"
+        value="/home/alfonso/PLANILLAS/IN"/>
+    <property
+        name="ebanca-application-ruta-archivo-respuesta-ftp-server"
+        value="/home/alfonso/PLANILLAS/OUT"/>
+    <property
+        name="ebanca-application-nombre-cola-respuesta-broker-ftp"
+        value="WAS204.PLANILLA.FTP.RSP"/>
+    <property 
+	name="complemento-planillaftp-mq-host"
+	value="sbssaaebde7.banagricola.com" />
+    <property 
+	name="complemento-planillaftp-mq-port" 
+	value="1415" />
+    <property
+	name="complemento-planillaftp-mq-manager" 
+	value="MQWAS" />
+    <property 
+	name="complemento-planillaftp-mq-canal" 
+	value="WAS.SVRCONN" />
+    <property
+	name="complemento-planillaftp-mq-cola"
+	value="COMPLEMENTO.PLANILLA.FTP" />
+    <property
+        name="anticipos-mq-cola"
+        value="EBANCA04.ANTICIPOS.REQ" />
+    <!-- Numero de Cuenta de Teleton-->
+    <property name="numero_cuenta_teleton" value="5002100000" />
+
+    <!-- Configuracion de Encabezado de Trama para AS400 -->
+    <property
+        name="DATAQUEUE.SUCURSAL"
+        value="037" />
+        
+    <property
+        name="DATAQUEUE.ESTACION"
+        value="01" />
+    <property
+        name="DATAQUEUE.SUPERVISOR"
+        value="0080" />
+
+	<!-- "Cajero"  -->
+    <property
+        name="DATAQUEUE.OPERADOR"
+        value="3700" />
+    <property
+        name="DATAQUEUE.OPERACION_NORMAL"
+        value="50" />
+    <property
+        name="DATAQUEUE.OPERACION_REVERSA"
+        value="52" />
+
+    <!-- Configuracion Threads para Transacciones Multiples -->
+    <property
+        name="TRANSACCION.MULTIPLE.WORKERS"
+        value="20" />
+        
+        
+    <!--  Definiciones de Mail   -->
+    <property
+        name="mail.host.server"
+        value="sbssaaebde7.banagricola.com" />
+	<property name="mail.host.server.port" value="2525" />
+    <property
+        name="mail.user"
+        value="ebancaempresarial@bancoagricola.com" />
+    <property
+        name="mail.user.comentarios"
+        value="info@bancoagricola.com" />
+    <property
+        name="mail.user.corporativo"
+        value="solicitudescorporativos@bancoagricola.com" />
+    <property
+        name="mail.user.comerciales"
+        value="solicitudescomerciales@bancoagricola.com" />
+    <property
+        name="mail.user.teleprestamo"
+        value="solicitudesteleprestamo@bancoagricola.com" />
+    <property
+        name="mail.password"
+        value="" />
+    <property
+        name="mail.default.from"
+        value="ebancaempresarial@bancoagricola.com.sv" />
+    <property
+        name="mail.to.mq"
+        value="rlovo@bancoagricola.com" />
+    <property
+        name="mail.user.error.comunicacion.taca"
+        value="rcgil@bancoagricola.com" />
+
+    <property
+        name="mail.subject.mq"
+        value="Excepcion MQ." />
+    <property
+        name="mail.from.mq"
+        value="ebancaempresarial@bancoagricola.com" />
+    <property
+        name="mail.body.mq"
+        value="El sistema a incurrido en una excepcion de mq." />
+    <property
+	name="directorio_validador_reporte"
+	value="/home/ebanca/sv/empresas/tmp/validador/" />
+    <property
+        name="banca.personal.cliente"
+        value="-9223372036854775799" />
+    <property
+        name="banca.personal.perfil.limitado"
+        value="1" />
+    <property
+        name="banca.personal.perfil.completo"
+        value="2" />
+    <property
+        name="banca.personal.mostrar.preaprobados"
+        value="true" />
+    <property
+        name="banca.personal.moneda.default"
+        value="USD" />
+    
+    <!-- en milliseconds -->
+    <property
+        name="web.menu.cache.refresh.frecuency"
+        value="100" />
+    <property
+        name="web.perfil.personal.refresh.frecuency"
+        value="100" />
+
+    <!-- CONFIGURACION DE CACHE EJB (A DEMANDA, EN MILISEGUNDOS) -->
+    <property name="cache_ejb_periodo_actualizacion_cliente" value="10200000" />
+
+    <!-- CONFIGURACION PORCENTAJE DE IVA -->
+    <property name="porcentaje_iva" value="13.00" />
+
+    <!-- URL Web Service -->
+    <property name="url_web_service_cache_cliente" value="http://localhost:9081/PcbacAdmin/services/ClienteService" />
+
+    <!-- Nombre de servidor actual -->
+    <property name="nombre.servidor" value="was204" />
+    <property name="codigo.servidor" value="01" />
+
+    <!-- -->
+    <!-- Datos y referencia de Ministerio de Hacienda -->
+    <!--  -->
+    <property
+        name="HACIENDA_WOKING_DIRECTORY_OUT"
+        value="/home/ebanca/sv/empresas/working/hacienda/out/" />
+    <property
+        name="HACIENDA_WOKING_DIRECTORY_IN"
+        value="/home/ebanca/sv/empresas/working/hacienda/in/" />
+    <property
+        name="HACIENDA_WOKING_DIRECTORY_TMP"
+        value="/home/ebanca/sv/empresas/working/hacienda/tmp" />
+    <property
+        name="HACIENDA_WOKING_DIRECTORY_LOG"
+        value="/home/ebanca/sv/empresas/working/hacienda/log" />
+    <property
+        name="HACIENDA_CERTIFICATE_FILE_NAME"
+        value="/home/ebanca/sv/empresas/working/hacienda/cert/mh.cer" />
+    <property
+        name="HACIENDA_CERTIFICATE_PRIVATE_KEY"
+        value="/home/ebanca/sv/empresas/working/hacienda/cert/mh.key" />
+    <property
+        name="HACIENDA_CERTIFICATE_PASWORD"
+        value="/home/ebanca/sv/empresas/working/hacienda/cert/mh.pass" />
+    <property
+        name="HACIEND_SEND_PARTNER_URL"
+        value="http://localhost:9080/PotalaWeb/getXml.hacienda" />
+    <property
+        name="HACIEND_DISPLAY_URL"
+        value="http://localhost:9080/PotalaWeb/display" />
+    <property
+        name="HACIENDA_CODIGO_BANCO"
+        value="120" />
+    <property
+        name="HACIENDA_CODIGO_CAJERO"
+        value="2320" />
+    <property
+        name="BANCO_XML_PREFIX"
+        value="hacienda_" />
+    <property
+        name="BANCO_WOKING_DIRECTORY_OUT"
+        value="/home/ebanca/sv/empresas/working/bac/out/" />
+    <property
+        name="BANCO_WOKING_DIRECTORY_IN"
+        value="/home/ebanca/sv/empresas/working/bac/in/" />
+    <property
+        name="BANCO_WOKING_DIRECTORY_TMP"
+        value="/home/ebanca/sv/empresas/working/bac/tmp" />
+    <property
+        name="BANCO_WOKING_DIRECTORY_LOG"
+        value="/home/ebanca/sv/empresas/working/bac/tmp" />
+    <property
+        name="BANCO_WOKING_DIRECTORY_PROCESADO"
+        value="/home/ebanca/sv/empresas/working/bac/procesado" />
+    <property
+        name="BANCO_CERTIFICATE_FILE_NAME"
+        value="/home/ebanca/sv/empresas/working/bac/cert/bagricola.cer" />
+    <property
+        name="BANCO_CERTIFICATE_PRIVATE_KEY"
+        value="/home/ebanca/sv/empresas/working/bac/cert/private.key" />
+    <property
+        name="BANCO_CERTIFICATE_PASWORD"
+        value="/home/ebanca/sv/empresas/working/bac/cert/passwd" />
+    <property
+        name="BANCO_LOGIN_URL"
+        value="http://localhost:9080/PotalaWeb/loginhacienda.do?idHacienda=" />
+    <property
+        name="BANCO_SEND_PARTNER_URL"
+        value="http://localhost:8080/Hacienda/receptorHacienda" />
+        
+    <!-- CONFIGURACION DE NOMBRES DE ESQUEMAS DE BASE DE DATOS -->
+    <property
+        name="nombre-esquema-bddebitoscreditos"
+        value="bddebitoscreditos" />
+    <property
+        name="nombre-esquema-corporativa" 
+        value="corporativa" />
+    <property
+        name="nombre-esquema-datos"
+        value="datos" />
+    <property
+        name="nombre-esquema-definiciones"
+        value="definiciones" />
+    <property
+        name="nombre-esquema-log"
+        value="log" />
+    <property
+        name="nombre-esquema-seguridad"
+        value="seguridad" />
+    <property
+        name="nombre-esquema-token"
+        value="token" />
+
+  <property    name="tipos_transaccion_ach_token"  value="69,70,71,72,73,75"/>
+ <!-- Propiedad para la alerta de transacciones sin respuesta FTP-->
+    <property
+        name="mail.user.administrador.transaccionesFTP"
+        value="rcgil@bancoagricola.com" />
+
+
+<!-- PROPIEDADES DEL IMPUESTO A TRANSACCIONES ELECTRONICAS -->
+        <property
+                name="validar_impuesto_trxs_electronicas"
+                value="true" />
+
+        <property
+                name="productos_exento_impuesto"
+                value="0166" />
+
+        <property
+                name="monto_limite_exento"
+                value="1000" />
+
+<!-- Propiedad para tipos de transaccion que manejan campo extension detalle-->
+    <property 
+	name="transacciones.campoextension.detalle"
+        value="45,46" />
+
+    <!-- Origen de Actualizacion de Cache -->
+    <property name="origen_dataSource" value="local" />
+
+<!-- CONFIGURACION PLANILLAS AUTOMATICAS -->
+	<property
+        name="HORA_DEFAULT_PLANILLA_AUT"
+        value="05"/>
+<!-- FTP -->
+    <property
+        name="ebanca-planillaautomatica-ip-ftp-server"
+        value="172.32.0.16"/>
+    <property
+        name="ebanca-planillaautomatica-name-ftp-server"
+        value="ftpProduccion"/>        
+    <property
+        name="ebanca-planillaautomatica-user-ftp-server"
+        value="ilc2011"/>
+    <property
+        name="ebanca-planillaautomatica-password-ftp-server"
+        value="XXXXXXXXXXXXXXXxxxx"/>
+<!-- SFTP -->
+    <property
+        name="ebanca-planillaautomatica-ip-sftp-server"
+        value="10.55.193.23"/>
+    <property
+        name="ebanca-planillaautomatica-name-sftp-server"
+        value="ftpPruebas"/>        
+    <property
+        name="ebanca-planillaautomatica-user-sftp-server"
+        value="FI01_ILCS"/>
+    <property
+        name="ebanca-planillaautomatica-password-sftp-server"
+        value="G@2A2eP@UHad"/>
+	<property
+        name="ebanca-planillaautomatica-knownhosts-sftp-server"
+        value="/.ssh/known_hosts"/>
+    
+	<!-- Definicion de entidades ACH que utilizan relleno con 0 a la izq numeros de ctas -->
+	<property name="id_entidad_ach_rellenar_cta"  value="55,217"/>
+
+<!-- CONFIGURACION DE FECHA LIBERACION ESTADO DE CUENTA; REQUERIMIENTO HOMOLOGACION DIRECCCIONES Por:JGEF 2015-11-08-->
+        <property name="fecha_formato_edo_cuenta_tarjeta_direcciones" value="08-11-2015" />
+
+    <!-- CONFIGURACION DE POOL DE CONEXIONES JDBC -->
+    <db
+        db-name="cache-db"
+	url="jdbc:mysql://mysql_ebanca_empresas_sv/datos"
+        driver="com.mysql.jdbc.Driver"
+        user="potalaman"
+	    password="estoesmuydivertido.69"
+        max-connections="300"
+        checkout-timeout="60000"
+        max-checkout="6000" />
+        
+    <db
+        db-name="corporativa"
+	url="jdbc:mysql://mysql_ebanca_empresas_sv/corporativa"
+        driver="com.mysql.jdbc.Driver"
+        user="potalaman"
+		password="estoesmuydivertido.69"
+        max-connections="300"
+        checkout-timeout="60000"
+        max-checkout="6000" />
+
+    <db
+        db-name="dbcr"
+        url="jdbc:mysql://mysql_ebanca_empresas_sv/bddebitoscreditos"
+        driver="com.mysql.jdbc.Driver"
+        user="potalaman"
+        password="estoesmuydivertido.69"
+        max-connections="300"
+        checkout-timeout="60000"
+        max-checkout="6000" />
+     <db
+        db-name="as400-ds"
+        url="172.19.41.130"
+        driver="com.ibm.as400.access.AS400JDBCDriver"
+        user="BACFINTEC"
+        password="BACFINTEC"
+        max-connections="300"
+        checkout-timeout="600000"
+        max-checkout="6000" />
+    <db
+        db-name="bacosi"
+        url="jdbc:microsoft:sqlserver://172.32.0.110:1433"
+        driver="com.microsoft.jdbc.sqlserver.SQLServerDriver"
+        user="sa"
+        password="xxxxxxxx"
+        max-connections="16"
+        checkout-timeout="60000"
+        max-checkout="6000" />
+
+
+    <!-- IP VALIDO PARA GOLPEAR SERVLET DE STATUS -->
+    <property name="ip-potala-status" value="localhost" />
+
+    <!-- PARAMETRIZAR TIPOS DE TRANSACCIONES DE PLANILLAS - Por:JGEF ID:63674 Fecha:02-Marzo-2017-->
+    <property name="validarCuadreCargosAbonosPlanillas" value="1,58,5,2,87,78,47"/>
+
+    <!-- INDICA SI SE VALIDA O NO EL x-forwarded-->
+    <property name="validar-x-forwarded" value="false" />
+
+    <!-- URL DE BANCA CORPORATIVA -->
+    <property name="url-banca-corporativa" value="http://localhost:9081/PotalaCorporativa/" />
+
+    <!-- URL DE BANCA PERSONAL -->
+    <property name="url-banca-personal" value="http://localhost:9080/PotalaPersonal/" />
+
+    <!-- Directorio de almacenamiento temporal para planillas AFP -->
+    <property name="afp_directorio_temporal"        value="/home/ebanca/sv/empresas/afp/aplicada/tmp/" />
+    <property name="afp_directorio_temporal_previo" value="/home/ebanca/sv/empresas/afp/aplicada/tmp/previo/" />
+
+    <!-- Directorio de almacenamiento para planillas AFP aplicadas -->
+    <property name="afp_directorio_destino" value="/home/ebanca/sv/empresas/afp/aplicada/" />
+
+    <!-- Parametros del visor transaccional -->
+    <!-- Rango maximo de dias, para consultar en el visor transaccional -->
+    <property name="visortransaccional_fechas_maxrange" value="60" />
+
+    <!-- Fecha a la que se le ajustara el maximo de dias permitidos -->
+    <property name="visortransaccional_fecha_ajuste" value="inicial" />
+
+    <!-- Timeout para el servicio receivePayment del webservice de tACA -->
+    <property name="taca_getrecordinfo_timeout" value="40000" />
+
+    <!-- Timeout para el servicio receivePayment del webservice de tACA -->
+    <property name="taca_receivepaymente_timeout" value="35000" />
+
+    <!-- Timeout para el servicio checRecordInfo del webservice de tACA -->
+    <property name="taca_checkrecordinfo_timeout" value="10000" />
+
+    <!-- Para poder cargar tarjestas de credito empresariales -->
+    <property name="ID_PRODUCTO_VISA_BUSINESS"        
+value="10140,10141,10145,10148,10149,10150,10151,10152,10153,10154,10156,10168,10169,10170,10171,10172,10173,10174,10175,10176,10177,10166" />
+
+<!-- Para no cargar ciertas tarjetas de credito empresarial especificas -->
+	<property name="ID_PRODUCTO_TARJETAS_FILTRADAS" value="10166" />
+
+<!-- visa bussiness que necesitan validaciones extras -->	 
+<property name="tarjeta_visa_bussiness_especial" value="10156" />
+	<!-- PROPIEDADES CLIENTES WS -->
+<property name="broker.colareq.clientesws" value="CLIENTES.WS.REQ"/>
+<property name="broker.colarsp.clientesws" value="CLIENTES.WS.RES"/>
+<property name="mq.broker.clientesws.timeout" value="30000" />
+<mq
+    transaccion="MQ-CLIENTESWS"
+    timeout="30000"
+    queue-request="WAS.GENERIC.REQ"
+    queue-requestnight="WAS.GENERIC.REQ.NOCHE"
+    queue-response="WAS.GENERIC.RSP"
+    queue-reversion="WAS.GENERIC.REQ"
+    queue-reversionnight="WAS.GENERIC.REQ.NOCHE"
+    qm-request="MQWAS"
+    qm-response="MQWAS"
+    qm-reversion="MQWAS"
+    hacerreversion="true"/>
+<property name="broker.colacorreo" value="ENVIO.CORREO.ELECTRONICO.REQ"/>	
+
+<!-- MQ_DETECTID 1.16.2 -->                             
+	<property name="MQ.HOST.DETECTID" value="172.19.1.44"/>                 
+	<property name="MQ.MANAGER.DETECTID" value="DESABROK01MQ" />                    
+	<property name="MQ.CHANNEL.DETECTID" value="CH.SERVER.CONN"/>                                                   
+	<property name="MQ.PORT.DETECTID" 
+	value="1414" />              
+	<property name="MQ.COLA.DETECTID.REQUEST"
+	value="DETECTIDEBE.REQ.QL"/>                                       
+	<property name="MQ.COLA.DETECTID.RESPONSE"
+	value="DETECTIDEBE.RSP.QL"/>                                                                                      
+	<property name="MQ.TIMEOUT.DETECTID" value="20000"/>     
+<!-- Tipo de transaccion permitida para visa bussiness especial -->	 
+<property name="tarjeta_visa_bussiness_especial_trx" value="8" />
+
+    <property name="mq.broker.host"                   value="broker"            />
+    <property name="mq.broker.port"                   value="1414"              />
+    <property name="mq.broker.canal"                  value="CH.SERVER.CONN"          />
+    <property name="mq.broker.manager"                value="DESABROK01MQ"                />
+    <property name="mq.broker.ColaPersonasUpdateRsp"  value="IBS.PERSONAS.UPDATE.RSP" />
+    <property name="mq.broker.ColaManteUsuarioRsp"    value="BABROKER.PERSONAS.RES" />
+    <property name="mq.broker.ColaUsuarioBacoficeRsp" value="IBS.PERSONAS.MANT.USER.RSP" />
+
+	<!-- PARAMETROS DEL CIRCULO DE PROVEEDORES.  AGREGADO 09/OCTUBRE/2007.  Agregado Systems Out of the Box / Roberto Gil -->
+	<!-- ESTA PROPIEDAD INDICA EL NOMBRE JNDI DEL CONNECTION FACTORY PARA JMS-->
+	<property name="cp.jmsConnectionFactory.jndiName" value="DESABROK01MQ"/>
+	<!-- EL NOMBRE DE LA CLASE CON EL INITIAL CONTEXT FACTORY-->
+	<property name="cp.queueHelper.java.naming.factory.initial" value="com.ibm.mq.jms.context.WMQInitialContextFactory"/>
+	<!-- URL DEL PROVEEDOR JMS-->
+	<property name="cp.queueHelper.java.naming.provider.url" value="172.19.1.44:1414/SYSTEM.DEF.SVRCONN"/>
+	<!--  QUEUECONNECTIONFACTORYNAME -->
+	<property name="cp.queueHelper.queueConnectionFactoryName" value="DESABROK01MQ" />
+	<!-- NOMBRE DE LA COLA HACIA LA QUE ESCRIBIMOS-->
+	<property name="cp.defaultJmsProcessor.destinationQueueName" value="PROCESS.TO.BROKER" />
+	<!--NOMBRE DE LA COLA DE LA CUAL LEEMOS -->
+	<property name="cp.defaultJmsProcessor.replyQueueName" value="BROKER.TO.PROCESS" />
+	<!-- TIEMPO DE ESPERA JMS  (CUANTO TIEMPO ESPERAREMOS A QUE NOS RESPONDA EL BROKER)-->
+	<property name="cp.defaultJmsProcessor.timeout" value="30000" />
+	<!-- PARA EL FTPCLIENTFACTORY, LA IP DEL SERVIDOR FTP-->
+	<property name="cp.defaultFtpClientFactory.constructor.0" value="172.32.0.120" />
+	<!-- PARA EL FTPCLIENTFACTORY EL USUARIO DEL SERVIDOR FTP-->
+	<property name="cp.defaultFtpClientFactory.constructor.1" value="alfonso" />
+	<!-- PARA EL FTPCLIENTFACTORY EL PASSWORD DEL SERVIDOR FTP-->
+	<property name="cp.defaultFtpClientFactory.constructor.2" value="alfonso" />
+	<!-- EL TIEMPO DE ESPERA PARA LOGRAR CONEXIONES EN EL SERVIDOR FTP-->
+	<property name="cp.defaultFtpClientFactory.constructor.timeout" value="7000" />
+	<!-- NUMERO DE REINTENTOS PARA EL FTP-->
+	<property name="cp.defaultFtpClientFactory.constructor.connectionsRetry" value="2" />
+	<!-- ESTA PROPIEDAD NOS INDICA A NUESTRO 'EMBEDDEDCONNECTIONLOADER' LA RUTA (EN EL CLASSPATH), ESTO ES INTERNO Y NO DEBE CAMBIAR
+	DEL SCRIPT CON TABLAS TEMPORALES EN DERBY -->
+	<property name="cp.defaultConnectionLoader.constructor.0" value="/com/ofbox/ba/cp/cnf/script.sql" />
+	<!-- ESTA ES LA RUTA DEL DIRECTORIO DONDE SE INSTALAN LOS ARCHIVOS DE LA BASE EMBEBIDA-->
+	<property name="cp.defaultConnectionLoader.constructor.1" value="/home/work/data/ba/ftp/tst" />
+	<!-- ESTA PROPIEDAD DEBE TENER 'FALSE' SIEMPRE QUE SE ENTRE A PRODUCCION.  INDICA SI SE ESTARAN CREANDO BASES TEMPORALES 
+	ALEATORIAS.  (UTIL CUANDO SE ESTA EN DESARROLLO Y SE TIENE QUE REINICIAR LA APLICACION PERO NO EL SERVIDOR)-->
+	<property name="cp.defaultConnectionLoader.constructor.2" value="false" />
+	<!--LOS SIGUIENTES PROPERTIES ESTAN POR DEFAULT Y NO DEBERIAN DE CAMBIAR -->
+	<property name="cp.standardSessionPojo.usuario" value="defaultUser" />
+	<property name="cp.standardSessionPojo.locacionUsuario" value=" " />
+	<property name="cp.standardSessionPojo.agencia" value="042" />
+	<property name="cp.standardHeaderRequest.sistema" value="BAPORTAL" />
+	<property name="cp.standardHeaderRequest.cliente" value="cliente" />
+	<property name="cp.standardHeaderRequest.cuenta" value="0001" />
+	<property name="cp.standardHeaderRequest.tarjeta" value="2" />
+	<property name="cp.standardHeaderRequest.bousr" value="2" />
+	<property name="cp.standardHeaderRequest.tipo" value="" />
+	<property name="cp.standardHeaderRequest.colaRespuesta" value="" />
+	
+	<!-- DIRECTORIOS DE ENTRADA Y DE SALIDA DE LOS ARCHIVOS QUE SE COLOCAN EN EL FTP-->
+	<property name="cp.ftp.directory.in" value="/Z14480307/in" />
+	<property name="cp.ftp.directory.out" value="/Z14480307/out" />
+	<property name="HORA_FIN_ANTICIPO_DE_DOCUMENTOS" value="2300" />
+	<property name="DIAS_PERMITIDOS_ANTICIPO_DE_DOCUMENTOS" value="Mon,Tue,Thu,Wed,Fri,Sat,Sun" />
+	<!-- PROPIEDADES DEL MQ -->
+	<property name="mq.broker.portal.channel" value="CH.SERVER.CONN" />
+	<property name="mq.broker.portal.destinationQueue" value="PROCESS.TO.BROKER" />
+	<property name="mq.broker.portal.host" value="172.19.1.44" />
+	<property name="mq.broker.portal.port" value="1414" />
+	<property name="mq.broker.portal.queueManager" value="DESABROK01MQ" />
+	<property name="mq.broker.portal.replyQueue" value="BROKER.TO.PROCESS" />
+	<property name="mq.broker.portal.timeout" value="30000" />
+
+	<!-- FIN PARAMETROS CIRCULO DE PROVEEDORES -->
+
+	<!-- Cóos de tipos de transaccion monetarias que deben de mostrar mensaje si fue procesada cuando 
+      	los sistemas se encuentren en modalidad nocturna -->
+	 <property name="tipos_transaccion_msg_cierre" value="1,2,3,4,6,7,8,9,30,34,36,37,38,45,46,52,58,47" />
+	
+	<!-- parametros de horario de finalizacion hora de cierre -->
+	<property name="hora_fin_dia_bancario" 	value="2359" />
+	<property name="mail.user.pegaso"  value="gestionempresarial@bancoagricola.com.sv,cialva@bancoagricola.com, jfalla@bancoagricola.com.sv"  />
+
+	<!-- Propiedades para la alerta de transacciones en estado aplicando 04/10/2010-->
+    <property 
+	name="mail.user.administrador.ebanca" value="cehernan@bancoagricola.com.sv,cnavarre@bancoagricola.com.sv,rcgil@bancoagricola.com.sv" />
+    <property 
+	name="periodo.antiguedad.transacciones.aplicando" value="2700000" />
+
+    <property name="webservice.centrex.timeout" value="30000" />
+
+    <!-- fin transacciones aplicando-->
+	
+    <!-- Codigos de productos CREDICHEQUE-->
+    <property name="producto_corriente_credicheque" value="164" />
+
+    <!-- Codigos de productos CREDICHEQUE-->
+    <property name="producto_prestamo_credicheque" value="420" />
+
+    <!-- Tabla de control de traslados de archivos zip de planillas AFP-->
+    <property name="mail.user.administrador.ftp" value="jmagana@bancoagricola.com.sv;oavargas@bancoagricola.com.sv;cnavarre@bancoagricola.com.sv" />
+
+    <!-- ANTICIPO ELECTRONICA DE DOCUMENTOS DE VENTA -->
+    	<property  name="HORA_INICIO_ANTICIPO_DE_DOCUMENTOS" value="0800" />
+	<property  name="HORA_FIN_ANTICIPO_DE_DOCUMENTOS" value="2300" />		<property  name="DIAS_PERMITIDOS_ANTICIPO_DE_DOCUMENTOS" value="Mon,Tue,Thu,Wed,Fri" />
+
+    <!-- Notificacion Administradores por Fallas en Generacion de Archivos Temporales a FTP-->
+    <property name="mail.user.administrador.servidores" value="" />
+
+    <!-- CONFIGURACION DE FECHA LIBERACION NUEVO FORMATO ESTADO DE CUENTA -->
+    <property name="fecha_nuevo_formato_edo_cuenta_tarjeta" value="26-02-2010" />
+
+	<!-- CONFIGURACION DE FECHA CONSTANCIAS LIOF -->
+    <property name="fecha_inicio_liof" value="01092014" />
+
+	<!-- PROPIEDADES ISSS -->
+	<property name="broker.colareq.isss" value="BROKER.TO.ISSSMDB.REQ.QL"/>
+	<property name="broker.colarsp.isss" value="CONSULTA.ISSS.RSP"/>
+
+    <!--PARAMETROS PARA ENVIAR TRANSFERENCIA Y PAGO SERVICIO-->
+    <property name="broker.host" value="172.19.1.44"/>
+    <property name="broker.manager" value="DESABROK01MQ"/>
+    <property name="broker.canal" value="CH.SERVER.CONN"/>
+    <property name="broker.puerto" value="1414"/>
+    <property name="broker.colareq" value="CONSULTA.SALDOS.REQ.QL"/>
+    <property name="broker.colarsp" value="BROKER.TO.SALDOS.RSP.LCL"/>
+    <property name="timeout.transferencia" value="60000"/>
+    <property name="timeout.pagoservicio" value="90000"/>
+
+	<!-- Niveles en historial de claves -->	
+	<!-- Niveles que validara en la tabla historialClaves que la clave que el usuario este ingresando no la haya ingresado con anterioridad -->
+	<property name="niveles_historial_claves" value="2" />
+
+        <!-- PARAMETRO DE NUMERO MAXIMO DE LINEAS A PROCESAR CON MULTIPLES ID-->
+        <property name="max_linea_multiples_id" value="100"/>
+	
+	<property name="dias_mora_cliente" value="14" />
+
+
+    <mq
+	transaccion="MQ-Abono"
+	timeout="90000"
+	queue-request="WAS.GENERIC.REQ"
+	queue-requestnight="WAS.GENERIC.REQ.NOCHE"
+	queue-response="WAS.GENERIC.RSP"
+	queue-reversion="WAS.GENERIC.REQ.REV"
+	queue-reversionnight="WAS.GENERIC.REQ.REV.NOCHE"
+	qm-request="MQWAS"
+	qm-response="MQWAS"
+	qm-reversion="MQWAS"
+	hacerreversion="true"/>
+    <mq
+	transaccion="MQ-AbonoDbCrDQ"
+	timeout="90000"
+	queue-request="WAS.GENERIC.REQ"
+	queue-requestnight="WAS.GENERIC.REQ.NOCHE"
+	queue-response="WAS.GENERIC.RSP"
+	queue-reversion="WAS.GENERIC.REQ.REV"
+	queue-reversionnight="WAS.GENERIC.REQ.REV.NOCHE"
+	qm-request="MQWAS"
+	qm-response="MQWAS"
+	qm-reversion="MQWAS"
+	hacerreversion="true"/>
+
+    <mq
+	transaccion="MQ-Aleatorio"
+	timeout="90000"
+	queue-request="WAS.GENERIC.REQ"
+	queue-requestnight="WAS.GENERIC.REQ.NOCHE"
+	queue-response="WAS.GENERIC.RSP"
+	queue-reversion="WAS.GENERIC.REQ.REV"
+	queue-reversionnight="WAS.GENERIC.REQ.REV.NOCHE"
+	qm-request="MQWAS"
+	qm-response="MQWAS"
+	qm-reversion="MQWAS"
+	hacerreversion="true"/>
+
+    <mq
+	transaccion="MQ-Bloqueo"
+	timeout="90000"
+	queue-request="WAS.GENERIC.REQ"
+	queue-requestnight="WAS.GENERIC.REQ.NOCHE"
+	queue-response="WAS.GENERIC.RSP"
+	queue-reversion="WAS.GENERIC.REQ.REV"
+	queue-reversionnight="WAS.GENERIC.REQ.REV.NOCHE"
+	qm-request="MQWAS"
+	qm-response="MQWAS"
+	qm-reversion="MQWAS"	
+	hacerreversion="true"/>
+    <mq
+	transaccion="MQ-Comision"
+	timeout="90000"
+	queue-request="WAS.GENERIC.REQ"
+	queue-requestnight="WAS.GENERIC.REQ.NOCHE"
+	queue-response="WAS.GENERIC.RSP"
+	queue-reversion="WAS.GENERIC.REQ.REV"
+	queue-reversionnight="WAS.GENERIC.REQ.REV.NOCHE"
+	qm-request="MQWAS"
+	qm-response="MQWAS"
+	qm-reversion="MQWAS"
+	hacerreversion="true"/>
+    <mq
+	transaccion="MQ-ConfirmarCHK"
+	timeout="90000"
+	queue-request="WAS.GENERIC.REQ"
+	queue-requestnight="WAS.GENERIC.REQ.NOCHE"
+	queue-response="WAS.GENERIC.RSP"
+	queue-reversion="WAS.GENERIC.REQ.REV"
+	queue-reversionnight="WAS.GENERIC.REQ.REV.NOCHE"
+	qm-request="MQWAS"
+	qm-response="MQWAS"
+	qm-reversion="MQWAS"
+	hacerreversion="true"/>
+
+    <mq
+	transaccion="MQ-DataQueuePoll"
+	timeout="90000"
+	queue-request="WAS.GENERIC.REQ"
+	queue-requestnight="WAS.GENERIC.REQ.NOCHE"
+	queue-response="WAS.GENERIC.RSP"
+	queue-reversion="WAS.GENERIC.REQ.REV"
+	queue-reversionnight="WAS.GENERIC.REQ.REV.NOCHE"
+	qm-request="MQWAS"
+	qm-response="MQWAS"
+	qm-reversion="MQWAS"
+	hacerreversion="true"/>
+    <mq
+	transaccion="MQ-DebitoCreditoDirectoDQ"
+	timeout="90000"
+	queue-request="WAS.GENERIC.REQ"
+	queue-requestnight="WAS.GENERIC.REQ.NOCHE"
+	queue-response="WAS.GENERIC.RSP"
+	queue-reversion="WAS.GENERIC.REQ.REV"
+	queue-reversionnight="WAS.GENERIC.REQ.REV.NOCHE"
+	qm-request="MQWAS"
+	qm-response="MQWAS"
+	qm-reversion="MQWAS"
+	hacerreversion="true"/>
+    <mq
+	transaccion="MQ-Extravio"
+	timeout="90000"
+	queue-request="WAS.GENERIC.REQ"
+	queue-requestnight="WAS.GENERIC.REQ.NOCHE"
+	queue-response="WAS.GENERIC.RSP"
+	queue-reversion="WAS.GENERIC.REQ.REV"
+	queue-reversionnight="WAS.GENERIC.REQ.REV.NOCHE"
+	qm-request="MQWAS"
+	qm-response="MQWAS"
+	qm-reversion="MQWAS"
+	hacerreversion="true"/>
+    <mq
+	transaccion="MQ-PagoAduanaDQ"
+	timeout="90000"
+	queue-request="WAS.GENERIC.REQ"
+	queue-requestnight="WAS.GENERIC.REQ.NOCHE"
+	queue-response="WAS.GENERIC.RSP"
+	queue-reversion="WAS.GENERIC.REQ.REV"
+	queue-reversionnight="WAS.GENERIC.REQ.REV.NOCHE"
+	qm-request="MQWAS"
+	qm-response="MQWAS"
+	qm-reversion="MQWAS"
+	hacerreversion="true"/>
+    <mq
+	transaccion="MQ-PagoImpuestoDQ"
+	timeout="90000"
+	queue-request="WAS.GENERIC.REQ"
+	queue-requestnight="WAS.GENERIC.REQ.NOCHE"
+	queue-response="WAS.GENERIC.RSP"
+	queue-reversion="WAS.GENERIC.REQ.REV"
+	queue-reversionnight="WAS.GENERIC.REQ.REV.NOCHE"
+	qm-request="MQWAS"
+	qm-response="MQWAS"
+	qm-reversion="MQWAS"
+	hacerreversion="true"/>
+    <mq
+	transaccion="MQ-PagoNPE"
+	timeout="90000"
+	queue-request="WAS.GENERIC.REQ"
+	queue-requestnight="WAS.GENERIC.REQ.NOCHE"
+	queue-response="WAS.GENERIC.RSP"
+	queue-reversion="WAS.GENERIC.REQ.REV"
+	queue-reversionnight="WAS.GENERIC.REQ.REV.NOCHE"
+	qm-request="MQWAS"
+	qm-response="MQWAS"
+	qm-reversion="MQWAS"
+	hacerreversion="true"/>
+    <mq
+	transaccion="MQ-Prestamo"
+	timeout="90000"
+	queue-request="WAS.GENERIC.REQ"
+	queue-requestnight="WAS.GENERIC.REQ.NOCHE"
+	queue-response="WAS.GENERIC.RSP"
+	queue-reversion="WAS.GENERIC.REQ.REV"
+	queue-reversionnight="WAS.GENERIC.REQ.REV.NOCHE"
+	qm-request="MQWAS"
+	qm-response="MQWAS"
+	qm-reversion="MQWAS"
+	hacerreversion="true"/>
+    <mq
+	transaccion="MQ-ReservaCHK"
+	timeout="90000"
+	queue-request="WAS.GENERIC.REQ"
+	queue-requestnight="WAS.GENERIC.REQ.NOCHE"
+	queue-response="WAS.GENERIC.RSP"
+	queue-reversion="WAS.GENERIC.REQ.REV"
+	queue-reversionnight="WAS.GENERIC.REQ.REV.NOCHE"
+	qm-request="MQWAS"
+	qm-response="MQWAS"
+	qm-reversion="MQWAS"
+	hacerreversion="true"/>
+
+    <mq
+	transaccion="MQ-Retiro"
+	timeout="90000"
+	queue-request="WAS.GENERIC.REQ"
+	queue-requestnight="WAS.GENERIC.REQ.NOCHE"
+	queue-response="WAS.GENERIC.RSP"
+	queue-reversion="WAS.GENERIC.REQ.REV"
+	queue-reversionnight="WAS.GENERIC.REQ.REV.NOCHE"
+	qm-request="MQWAS"
+	qm-response="MQWAS"
+	qm-reversion="MQWAS"
+	hacerreversion="true"/>
+
+    <mq
+        transaccion="MQ-RetiroTarjeta"
+        timeout="90000"
+        queue-request="WAS.GENERIC.REQ"
+        queue-requestnight="WAS.GENERIC.REQ.NOCHE"
+        queue-response="WAS.GENERIC.RSP"
+        queue-reversion="WAS.GENERIC.REQ.REV"
+        queue-reversionnight="WAS.GENERIC.REQ.REV.NOCHE"
+        qm-request="MQWAS"
+        qm-response="MQWAS"
+        qm-reversion="MQWAS"
+        hacerreversion="true"/>
+
+    <mq
+	transaccion="MQ-RetiroDbCrDQ"
+	timeout="90000"
+	queue-request="WAS.GENERIC.REQ"
+	queue-requestnight="WAS.GENERIC.REQ.NOCHE"
+	queue-response="WAS.GENERIC.RSP"
+	queue-reversion="WAS.GENERIC.REQ.REV"
+	queue-reversionnight="WAS.GENERIC.REQ.REV.NOCHE"
+	qm-request="MQWAS"
+	qm-response="MQWAS"
+	qm-reversion="MQWAS"
+	hacerreversion="true"/>
+    <mq
+	transaccion="MQ-SolicitudChequeraDQ"
+	timeout="90000"
+	queue-request="WAS.GENERIC.REQ"
+	queue-requestnight="WAS.GENERIC.REQ.NOCHE"
+	queue-response="WAS.GENERIC.RSP"
+	queue-reversion="WAS.GENERIC.REQ.REV"
+	queue-reversionnight="WAS.GENERIC.REQ.REV.NOCHE"
+	qm-request="MQWAS"
+	qm-response="MQWAS"
+	qm-reversion="MQWAS"
+	hacerreversion="true"/>
+    <mq
+	transaccion="MQ-SolicitudConfirmacionDQ"
+	timeout="90000"
+	queue-request="WAS.GENERIC.REQ"
+	queue-requestnight="WAS.GENERIC.REQ.NOCHE"
+	queue-response="WAS.GENERIC.RSP"
+	queue-reversion="WAS.GENERIC.REQ.REV"
+	queue-reversionnight="WAS.GENERIC.REQ.REV.NOCHE"
+	qm-request="MQWAS"
+	qm-response="MQWAS"
+	qm-reversion="MQWAS"
+	hacerreversion="true"/>
+   <mq
+	transaccion="MQ-Suspencion"
+	timeout="90000"
+	queue-request="WAS.GENERIC.REQ"
+	queue-requestnight="WAS.GENERIC.REQ.NOCHE"
+	queue-response="WAS.GENERIC.RSP"
+	queue-reversion="WAS.GENERIC.REQ"
+	queue-reversionnight="WAS.GENERIC.REQ.NOCHE"
+	qm-request="MQWAS"
+	qm-response="MQWAS"
+	qm-reversion="MQWAS"
+	hacerreversion="true"/>
+  <mq
+	transaccion="MQ-Tarjeta"
+	timeout="90000"
+	queue-request="WAS.GENERIC.REQ"
+	queue-requestnight="WAS.GENERIC.REQ.NOCHE"
+	queue-response="WAS.GENERIC.RSP"
+	queue-reversion="WAS.GENERIC.REQ.REV"
+	queue-reversionnight="WAS.GENERIC.REQ.REV.NOCHE"
+	qm-request="MQWAS"
+	qm-response="MQWAS"
+	qm-reversion="MQWAS"
+	hacerreversion="true"/>
+  <mq
+	transaccion="MQ-TransaccionReversion"
+	timeout="90000"
+	queue-request="WAS.GENERIC.REQ"
+	queue-requestnight="WAS.GENERIC.REQ.NOCHE"
+	queue-response="WAS.GENERIC.RSP"
+	queue-reversion="WAS.GENERIC.REQ.REV"
+	queue-reversionnight="WAS.GENERIC.REQ.REV.NOCHE"
+	qm-request="MQWAS"
+	qm-response="MQWAS"
+	qm-reversion="MQWAS"
+	hacerreversion="true"/>
+  <mq
+	transaccion="MQ-TransferenciaInternacionalDQ"
+	timeout="90000"
+	queue-request="WAS.GENERIC.REQ"
+	queue-requestnight="WAS.GENERIC.REQ.NOCHE"
+	queue-response="WAS.GENERIC.RSP"
+	queue-reversion="WAS.GENERIC.REQ.REV"
+	queue-reversionnight="WAS.GENERIC.REQ.REV.NOCHE"
+	qm-request="MQWAS"
+	qm-response="MQWAS"
+	qm-reversion="MQWAS"
+	hacerreversion="true"/>
+  <mq
+	transaccion="MQ-Pension"
+	timeout="90000"
+	queue-request="WAS.GENERIC.REQ"
+	queue-requestnight="WAS.GENERIC.REQ.NOCHE"
+	queue-response="WAS.GENERIC.RSP"
+	queue-reversion="WAS.GENERIC.REQ.REV"
+	queue-reversionnight="WAS.GENERIC.REQ.REV.NOCHE"
+	qm-request="MQWAS"
+	qm-response="MQWAS"
+	qm-reversion="MQWAS"
+	hacerreversion="true"/>
+  <mq
+	transaccion="MQ-ISSS"
+	timeout="90000"
+	queue-request="WAS.GENERIC.REQ"
+	queue-requestnight="WAS.GENERIC.REQ.NOCHE"
+	queue-response="WAS.GENERIC.RSP"
+	queue-reversion="WAS.GENERIC.REQ.REV"
+	queue-reversionnight="WAS.GENERIC.REQ.REV.NOCHE"
+	qm-request="MQWAS"
+	qm-response="MQWAS"
+	qm-reversion="MQWAS"
+	hacerreversion="true"/>
+  <mq
+	transaccion="MQ-PagoAfpDQ"
+	timeout="90000"
+	queue-request="WAS.GENERIC.REQ"
+	queue-requestnight="WAS.GENERIC.REQ.NOCHE"
+	queue-response="WAS.GENERIC.RSP"
+	queue-reversion="WAS.GENERIC.REQ.REV"
+	queue-reversionnight="WAS.GENERIC.REQ.REV.NOCHE"
+	qm-request="MQWAS"
+	qm-response="MQWAS"
+	qm-reversion="MQWAS"
+	hacerreversion="true"/>
+  <mq
+	transaccion="MQ-ReservaDq"
+	timeout="90000"
+	queue-request="WAS.GENERIC.REQ"
+	queue-requestnight="WAS.GENERIC.REQ.NOCHE"
+	queue-response="WAS.GENERIC.RSP"
+	queue-reversion="WAS.GENERIC.REQ.REV"
+	queue-reversionnight="WAS.GENERIC.REQ.REV.NOCHE"
+	qm-request="MQWAS"
+	qm-response="MQWAS"
+	qm-reversion="MQWAS"
+	hacerreversion="true"/>
+  <mq
+        transaccion="MQ-PagoCentrexDQ"
+        timeout="90000"
+        queue-request="WAS.GENERIC.REQ"
+        queue-requestnight="WAS.GENERIC.REQ.NOCHE"
+        queue-response="WAS.GENERIC.RSP"
+        queue-reversion="WAS.GENERIC.REQ.REV"
+        queue-reversionnight="WAS.GENERIC.REQ.REV.NOCHE"
+        qm-request="MQWAS"
+        qm-response="MQWAS"
+        qm-reversion="MQWAS"
+        hacerreversion="true"/>
+  <mq
+	transaccion="MQ-RecargaCelularDQ"
+	timeout="90000"
+	queue-request="WAS.GENERIC.REQ"
+	queue-requestnight="WAS.GENERIC.REQ.NOCHE"
+	queue-response="WAS.GENERIC.RSP"
+	queue-reversion="WAS.GENERIC.REQ.REV"
+	queue-reversionnight="WAS.GENERIC.REQ.REV.NOCHE"
+	qm-request="MQWAS"
+	qm-response="MQWAS"
+	qm-reversion="MQWAS"
+	hacerreversion="true"/>
+    <mq
+        transaccion="MQ-PlanillaFTP"
+        timeout="90000"
+        queue-request="BROKER.PLANILLA.FTP.REQ"
+        queue-requestnight="BROKER.PLANILLA.FTP.REQ"
+        queue-response=""
+        queue-reversion=""
+        queue-reversionnight=""
+        qm-request="MQWAS"
+        qm-response=""
+        qm-reversion=""
+        hacerreversion="false"/>
+  <mq
+	transaccion="MQ-AES"
+	timeout="90000"
+	queue-request="WAS.GENERIC.REQ"
+	queue-requestnight="WAS.GENERIC.REQ.NOCHE"
+	queue-response="WAS.GENERIC.RSP"
+	queue-reversion="WAS.GENERIC.REQ.REV"
+	queue-reversionnight="WAS.GENERIC.REQ.REV.NOCHE"
+	qm-request="MQWAS"
+	qm-response="MQWAS"
+	qm-reversion="MQWAS"
+	hacerreversion="true"/>
+
+</cempi>

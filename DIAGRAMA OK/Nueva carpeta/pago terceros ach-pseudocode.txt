@@ -1,0 +1,66 @@
+/******** INICIO 1er ESTADO *********/
+
+-> Verificacion de USUARIO y TOKEN ->
+    -> executeInicio() ->
+        -> accion = "favorito"
+            -> obtener favoritos
+                -> MYSQL # 3 JDBC <-
+        <-
+        -> listar Bancos ACH
+            -> Servicio AS400 <2100020> <Servicios.getListBancosACH ()> <-
+        -> listar Parametros Cta. ACH
+            -> Servicio AS400 <2100030> <Servicios.getListParametrosCuentasACH()> <-
+        -> obtener favorito por PAGO_PRESTAMO_ACH
+            -> MYSQL # 4 JDBC <-
+        -> validarCuentaCargoCliente <-
+    -> GUARDAR EXTENSIÓN DE ENCABEZADO DE TRANSACCIÓN SEGÚN VALIDACIÓN <-
+
+/******** FIN 1ER ESTADO *********/
+
+/******** INICIO 2do ESTADO *********/
+
+-> Si BCO destino < 55 , 217 > (Rellenar cuenta)
+    -> numeroCuentaACH = Helper.completeLeftWith(numeroCuentaACH, '0', longitudMaxima) <-
+-> validarCuentaCargoCliente()
+-> saldoTarjeta = refrescarSaldo ->
+    -> return refrescarSaldo -> 
+        -> CuentasUtils.refreshSaldo -> 
+            -> refreshSaldosByCliente -> 
+                -> case 4 : // Tarjeta de Credito -> 
+                    -> getUsuarioCuentaList
+                        -> AS400<001> JDBC<-
+                <-
+            <- actualiza lista de cuentas segun map(#Tarjeta, saldoTarjeta)
+        <- return Cuenta(SaldosTarjeta)
+    <- return
+obtener favorito (para obtener email de beneficiario segun favorito)
+    -> MYSQL # 3 JDBC <-
+-> validar si transaccion es calendarizada
+    -> Servicio AS400 <2100026> <Servicios.getFechaYFondoDisponibleACH()> <-
+    -> Asignacion de fecha para aplicar transaccion <-
+-> tipoTransaccion = TRANSF_TERCEROS_ACH (consultar impuestos)
+    -> Obtener cuenta 
+        -> AS400<002> JDBC<-
+    -> Servicio AS400 <2800110> <Servicios.consultaImpuesto()> <-
+    <-
+-> Acutalizar estado de Form
+
+/******** FIN 2do ESTADO *********/
+
+/******** INICIO 3er ESTADO *********/
+
+->verificar si CORREGIR o GUARDAR
+->Servicios.limitesValido
+    -> !TipoOperacion.MULTIPLE
+        ->saveTransaccion()
+            -> TransaccionUtils.save(*trx*)
+                -> HibernateMap.save(*trx*)
+                ->crearBanderaGuardarTransaccion
+                    -> MYSQL # <-
+                <-
+            <-
+        <-
+    <-
+<-
+
+/******** FIN 3er ESTADO *********/
